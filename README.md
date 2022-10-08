@@ -10,7 +10,7 @@
 
 | Basic | OOP | Collections | Effective | JVM |
 |:---:|:---:|:---:|:---:|:---:|
-|  |  |  |  |  |
+|  |  |  |  |[JVM](https://github.com/yerimsw/TIL/blob/main/Java/JVM.md)|
 |  |  |  |  |  |
 |  |  |  |  |  |
 |  |  |  |  |  |
@@ -20,6 +20,11 @@
 <br>
 
 ### Database
+
+| Database | SQL | NoSQL |
+|:---:|:---:|:---:|
+|[ACID](https://github.com/yerimsw/TIL/blob/main/Database/ACID.md)|[RDB](https://github.com/yerimsw/TIL/blob/main/Database/RDB.md)|   |
+|   |[MySQL](https://github.com/yerimsw/TIL/blob/main/Database/MySQL/SQL.md)|   |
 
 ***
 ## 🖥️ Computer Science
