@@ -1,8 +1,16 @@
-### Java에서 컬렉션 정렬하기
+## 목차
+1. [Java의 컬렉션 정렬](#java의-컬렉션-정렬)
+2. [Comparable](#comparable)
+3. [Comparator](#comparator)
+4. [Comparable vs Comparator](#comparable-vs-comparator)
+<br/>
+
+### Java의 컬렉션 정렬
 
 - 컬렉션을 정렬할 때 오름차순, 내림차순 등 기준에 따라 정렬한다.
 - 자바는 정렬 기준을 사용자가 정의할 수 있는 방법을 두가지 제시한다.
 - 바로 `Comparable` 인터페이스와 `Comparator` 인터페이스다.
+<br/>
 
 ### Comparable
 
@@ -21,10 +29,12 @@
 - 메서드를 호출한 객체가, 매개변수 객체보다 크면 양수, 같으면 0, 작으면 음수를 리턴하도록 구현을 강제한다.
     
     ```java
-    public int compareTo(Movie m) {
-    	return this.year - m.year;
+    class Movie implements comparable<Movie> {
+	    public int compareTo(Movie m) {
+		    return this.year - m.year;
+	    }
     }
-    ...
+    
     class Main {
     	public static void main(String[] args) {
     		ArrayList<Movie> list = new ArrayList<>();
@@ -44,7 +54,7 @@
     	list.sort(null);
     }
     ```
-    
+<br/>    
 
 ### Comparator
 
@@ -89,7 +99,7 @@
       list.sort(c);
     }
     ```
-    
+<br/>
 
 ### Comparable vs Comparator
 
@@ -97,4 +107,4 @@
 - Comparable의 compareTo 메서드는 호출한 객체와 매개변수로 주어진 객체를 비교한다.
 - Comparator의 compare 메서드는 매개변수로 주어진 두 객체를 비교한다.
 - Comparable 정렬은 하나의 오버라이딩 된 메서드를 사용하기 때문에, 한가지 속성만을 기준으로 정렬할 수 있다.
-- Comparator는 애초에 클래스를 만드는 것이기 때문에, 여러 메서드를 오버로딩 할 수 있어서, 여러 속성을 기준으로 정렬할 수 있다.
+- Comparator 정렬은 클래스를 생성하기 때문에, 메서드를 오버로딩 할 수 있어서, 여러 속성을 기준으로 정렬할 수 있다.
