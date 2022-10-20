@@ -24,10 +24,12 @@
 
 - `View`는 Model 데이터를 특정 포맷으로 변환하여 클라이언트에게 제공한다.
 - Spring은 다양한 View 기술들(HTML, PDF, XML, JSON 등)을 제공한다.
+- HTML 페이지에 Model 데이터를 넣어 `View`가 렌더링해 클라이언트에게 전송한다. (Ex. JSP JSTL, Thymeleaf, FreeMaker, etc)
+- XML, JSON 등 특정 포맷으로 데이터를 전송하면 프론트에서 HTML 페이지를 구성한다.
 
 ### Controller
 
-- `Controller`는 클라이언트의 요청을 받아 Model과 View의 중간에서 데이터를 전달한다.
+- `Controller`는 클라이언트 요청의 엔드포인트로 Model과 View의 중간에서 데이터를 전달한다.
 - 즉, 클라이언트의 요청을 전달 받고, 비즈니스 로직을 통해 Model객체를 전달받아 View에 전달한다.
 - `@Controller` 애노테이션은 이 클래스가 Spring MVC Controller임을 나타낸다.
 
