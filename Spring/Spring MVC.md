@@ -1,7 +1,7 @@
 ## 목차
 
-1. [Spring MVC](#1-Spring-MVC)
-2. [DispatcherServlet](#2-DispatcherServlet)
+1. [Spring MVC](#1-spring-mvc)
+2. [DispatcherServlet](#2-dispatcherservlet)
 <br/>
 
 ## 1. Spring MVC
@@ -13,27 +13,23 @@
 ![image](https://user-images.githubusercontent.com/54367532/196936949-bd98f26c-324a-429e-887a-8adcb6ec12f6.png)
 
 - Servlet API를 기반으로 클라이언트의 요청을 처리하는 스프링 웹 프레임워크다.
-<br/>
 
 ### Model
 
 - `Model`은 요청에 대한 응답으로 돌려주는 결과 데이터다.
 - 클라이언트의 요청을 처리하는 코드를 비즈니스 로직이라고 하며, 이 로직을 수행하는 영역을 서비스 계층이라고 한다.
 - Map 자료구조로, HTTP 요청 데이터를 key value 로 저장한다.
-<br/>
 
 ### View
 
 - `View`는 Model 데이터를 특정 포맷으로 변환하여 클라이언트에게 제공한다.
 - Spring은 다양한 View 기술들(HTML, PDF, XML, JSON 등)을 제공한다.
-<br/>
 
 ### Controller
 
 - `Controller`는 클라이언트의 요청을 받아 Model과 View의 중간에서 데이터를 전달한다.
 - 즉, 클라이언트의 요청을 전달 받고, 비즈니스 로직을 통해 Model객체를 전달받아 View에 전달한다.
 - `@Controller` 애노테이션은 이 클래스가 Spring MVC Controller임을 나타낸다.
-<br/>
 
 ### 정리
 
@@ -43,7 +39,7 @@
 - View가 응답 데이터를 생성하여 Client에게 전달
 <br/>
 
-## 2. DispatcherServelet
+## 2. DispatcherServlet
 
 > https://www.javatpoint.com/spring-mvc-tutorial
 
