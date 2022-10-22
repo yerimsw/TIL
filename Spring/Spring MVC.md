@@ -1,7 +1,7 @@
 ## 목차
 
 1. [Spring MVC](#1-spring-mvc)
-2. [DispatcherServlet](#2-dispatcherservlet)
+2. [Spring MVC 동작 방식](#2-spring-mvc-동작-방식)
 <br/>
 
 ## 1. Spring MVC
@@ -18,7 +18,7 @@
 
 - `Model`은 요청에 대한 응답으로 돌려주는 결과 데이터다.
 - 클라이언트의 요청을 처리하는 코드를 비즈니스 로직이라고 하며, 이 로직을 수행하는 영역을 서비스 계층이라고 한다.
-- Map 자료구조로, HTTP 요청 데이터를 key value 로 저장한다.
+- HTTP 요청 데이터를 key value 로 저장한다.
 
 ### View
 
@@ -29,7 +29,7 @@
 
 ### Controller
 
-- `Controller`는 클라이언트 요청의 엔드포인트로 Model과 View의 중간에서 데이터를 전달한다.
+- `Controller`는 클라이언트 요청의 엔드포인트로 Model 데이터를 전달한다.
 - 즉, 클라이언트의 요청을 전달 받고, 비즈니스 로직을 통해 Model객체를 전달받아 View에 전달한다.
 - `@Controller` 애노테이션은 이 클래스가 Spring MVC Controller임을 나타낸다.
 
@@ -41,7 +41,7 @@
 - View가 응답 데이터를 생성하여 Client에게 전달
 <br/>
 
-## 2. DispatcherServlet
+## 2. Spring MVC 동작 방식
 
 > https://www.javatpoint.com/spring-mvc-tutorial
 
