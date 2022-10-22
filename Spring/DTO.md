@@ -35,7 +35,7 @@ public ResponseEntity postMethod(@RequestParam("variable1") Integer v1,
 }
 ```
 
-- Request body로 전달되는 JSON 형식의 데이터를 `@RequestParam`을 통해 변수 값을 얻는다.
+- Request body로 전달되는 데이터를 `@RequestParam`을 통해 변수 값을 얻는다.
 - 전송되는 데이터의 수가 늘어나면 비효율적인 코드가 된다.
 - 이때, DTO 객체를 사용하면 요청 데이터를 하나의 객체로 전달받을 수 있다.
 <br>
@@ -97,8 +97,8 @@ public ResponseEntity postMethod(@Valid @RequestBody DtoObject dtoObject) {
 1. DTO 객체 생성
    - DTO 객체 생성 시, Getter 메서드를 반드시 작성해야 한다.
    - Getter 메서드를 작성하지 않으면 Request Body에 해당 멤버 변수 데이터가 포함되지 않는다.
+
 2. 컨트롤러 핸들러 메서드
-   - 클라이언트와 서버 간의 전달 데이터 형식이 `JSON`일 때, `@RequestBody` 애노테이션을 추가한다.
    - `@RequestBody` 애너테이션은 JSON 타입의 Request Body를 자바 DTO 객체로 변환시켜준다.
    - JSON 형식으로 데이터를 전송하지 않으면 "Unsupported Media Type" 에러 메시지를 전송한다.
-   - `@ResponseBody` 애너테이션을 핸들러메서드 레벨에 적용하거나, 리턴 타입을 `ResponseEntity`로 작성해야 한다.
+   - 서버에서 클라이언트로 응답 데이터를 전송하기 위해, `@ResponseBody` 애너테이션을 핸들러메서드 레벨에 적용하거나, 리턴 타입을 `ResponseEntity`로 작성해야 한다.
