@@ -8,22 +8,23 @@
 
 ### Java 
 
-| Basic | OOP | Collections | Effective | JVM |
-|:---:|:---:|:---:|:---:|:---:|
-|[변수](https://github.com/yerimsw/TIL/blob/main/Java/%EB%B3%80%EC%88%98.md)|  |  |  |[JVM](https://github.com/yerimsw/TIL/blob/main/Java/JVM.md)|
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
+| Basic | OOP | Collections | Effective | JVM | ETC |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|[Type](Java/Type.md)|  |[Collection sort](Java/Comparator%20vs%20Comparable.md)|  |[JVM](Java/JVM.md)| |
+|[Type Casting](Java/Type%20Casting.md)|  |  |  |  | |
+|[Variable](Java/Variable.md)|  |  |  |  | |
+|  |  |  |  |  | |
+|  |  |  |  |  | |
+|  |  |  |  |  | |
 <br>
 
 ### Spring
 | Spring Core | MVC | Security |
 |:---:|:---:|:---:|
 |[Library vs Framework](Spring/Library%20vs%20Framework.md) |[Spring MVC](Spring/Spring%20MVC.md)||
-|[Spring Framework](https://github.com/yerimsw/TIL/blob/main/Spring/Spring%20Framework.md)|[Springboot Entrypoint](Spring/Spring%20Boot%20Entry%20Point.md)||
-|[Spring Container](Spring/Spring%20Contatiner.md)| | |
+|[Spring Framework](Spring/Spring%20Framework.md)|[DTO](Spring/DTO.md)||
+|[Spring Container](Spring/Spring%20Contatiner.md)|[DTO Validation](Spring/DTO%20Validation.md)| |
+|[Singleton Container](Spring/Singleton%20Container.md)|| |
 <br>
 
 ### Database
