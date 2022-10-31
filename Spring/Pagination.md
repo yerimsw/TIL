@@ -1,5 +1,6 @@
 ## Spring Data JDBC에서 페이징 인터페이스 사용하기
-![](Spring/JDBC_Pagination.png)
+![](JDBC_Pagination.png)
+<br>
 
 ### CrudRepository 인터페이스
 
