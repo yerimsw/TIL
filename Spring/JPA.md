@@ -1,3 +1,11 @@
+### 목차
+1. [JPA와 영속성 컨텍스트](#1-jpa와-영속성-컨텍스트)
+2. [단일 엔티티 테이블 매핑](#2-jpa-단일-엔티티-매핑)
+3. [엔티티 간 연관관계 매핑](#3-jpa-엔티티-연관관계-매핑)
+<br>
+
+## 1. JPA와 영속성 컨텍스트
+
 ### JPA란
 
 > Java Persistence API
@@ -17,17 +25,68 @@
 
 ### JPA API
 
+``` java
+@Configuration
+public class JpaConfig {
+   private EntityManager em;
+   private EntityTransaction tx;
+   
+   @Bean
+   public CommandLineRunner testJpaRunner(EntityManagerFactory emFactory) {
+      this.em = emFactory.getEntityManeger(); // (1)
+      this.tx = em.getTransaction(); // (2)
+      
+      return args -> {
+      
+      };
+   }
+}
+```
+
+1. JPA 영속성 컨텍스트를 관리하는 EntityManager 클래스는 EntityManegerFactory 로부터 얻을 수 있다.
+2. Transaction 객체는 EntityManager를 통해 얻을 수 있다.
+<br>
+
 - 엔티티 저장: em.persist() → INSERT 쿼리
 - 엔티티 수정: setter 메서드 → UPDATE 쿼리
 - 엔티티 삭제: em.remove() → DELETE 쿼리
 - 엔티티 조회: em.find(class, value) → SELECT 쿼리
 - 영속성 컨텍스트 변경 사항 테이블에 반영 : tx.commit() 을 통한 em.flush() 호출
+<br>
 
-### JPA 엔티티 매핑
+## 2. JPA 단일 엔티티 매핑
 
-1. 엔티티와 테이블 매핑
-2. 기본키 매핑
+### 엔티티와 테이블 매핑
+   - `@Entity`: 클래스 레벨에 붙여 엔티티 클래스와 테이블을 매핑한다. JPA 관리 대상 엔티티로 지정한다.
+   - `@Table`: 테이블명을 지정한다.
+   - `@Id`: 테이블 식별자를 지정한다.
+
+### 기본키 매핑
+> @GeneratedValue
    - IDENTITY
    - SEQUENCE
-3. 필드와 칼럼 매핑
-4. 엔티티와 엔티티 연관관계 매핑
+   - TABLE
+   - AUTO
+
+### 필드와 칼럼 매핑
+   - `@Column`
+   - `@Enumerated`
+   - `@Temporal`
+   - `@Transient`
+<br>
+
+## 3. JPA 엔티티 연관관계 매핑
+
+### 연관 관계 정의 기준
+
+- 방향성: 단방향, 양방향
+   - 비즈니스 로직에 따라 객체 참조가 한 쪽으로만 이뤄지면 단방향, 서로 간에 객체 참조가 이뤄지면 양방향이다.
+   - 기본적으로 단방향 매핑을 한 후, 역방향 객체 참조가 필요할 때 양방향 매핑을 추가하는 것이 좋다.
+   - 양방향 연관 관계에서 어떤 객체가 실질적인 권한(저장, 조회, 수정, 삭제)을 갖는지 지정해야 한다.
+   - 외래키를 갖는 테이블(외래키 역할 객체를 참조하는 쪽)이 양방향 관계의 제어 권한을 갖는다.
+
+- 참조 객체 수: 일대다, 다대일, 다대다, 일대일
+   - 1:N 단방향 연관 관계는 잘 사용하지 않는다.
+   - N:1 양방향 연관 관계에서 N 쪽이 외래키를 가지며 제어 권한을 갖는다.
+   - 1:1 양방향 연관 관계에서 주 테이블이 외래키를 가지며 제어 권한을 갖는다.
+   - N:N 매핑은 외래키 외의 다른 정보를 저장할 수 없고, 중간 테이블에 의해 복잡한 조인 쿼리가 발생할 수 있어 권장하지 않는다.
