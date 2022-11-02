@@ -19,9 +19,9 @@
 <br>
 
 ### Spring
-| Spring Core | MVC | Security |
+| Spring Core | MVC | ORM |
 |:---:|:---:|:---:|
-|[Library vs Framework](Spring/Library%20vs%20Framework.md) |[Spring MVC](Spring/Spring%20MVC.md)||
+|[Library vs Framework](Spring/Library%20vs%20Framework.md) |[Spring MVC](Spring/Spring%20MVC.md)|[JPA](Spring/JPA.md)|
 |[Spring Framework](Spring/Spring%20Framework.md)|[DTO](Spring/DTO.md)||
 |[Spring Container](Spring/Spring%20Contatiner.md)|[DTO Validation](Spring/DTO%20Validation.md)| |
 |[Singleton Container](Spring/Singleton%20Container.md)|| |
