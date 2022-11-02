@@ -90,3 +90,68 @@ public class JpaConfig {
    - N:1 양방향 연관 관계에서 N 쪽이 외래키를 가지며 제어 권한을 갖는다.
    - 1:1 양방향 연관 관계에서 주 테이블이 외래키를 가지며 제어 권한을 갖는다.
    - N:N 매핑은 외래키 외의 다른 정보를 저장할 수 없고, 중간 테이블에 의해 복잡한 조인 쿼리가 발생할 수 있어 권장하지 않는다.
+<br>
+
+### N:1 연관 관계
+
+- 다대일 단방향
+
+```java
+@Entity(name = "ORDERS")
+public class Order {
+   ...
+   @ManyToOne // (1)
+   @JoinColumn("MEMBER_ID") // (2)
+   private Member member;
+   ...
+}
+```
+1. 외래키 역할을 하는 객체 참조에 `@ManyToOne` 애너테이션을 작성한다. Order 엔티티와 Member 엔티티가 N:1 관계임을 나타낸다.
+2. ORDERS 테이블에서 외래키 칼럼명을 MEMBER_ID로 지정한다. 
+<br>
+
+- 다대일 양방향
+
+```java
+@Entity
+public class Member {
+   ...
+   @OneToMany(mappedBy="member") // (1)
+   private List<Order> orders = new ArrayList<>();
+   ...
+}
+```
+1. Order:Member = N:1 이므로 `@OneToMany` 애너테이션을 작성한다.
+2. mappedBy에 Order 엔티티에서 Member 객체를 참조하는 필드명을 작성한다.
+<br>
+
+### 1:1 연관 관계
+
+- 일대일 단방향
+
+```java
+@Entity
+public class Post {
+   ...
+   @OneToOne // (1)
+   @JoinColumn("FILE_ID") // (2)
+   private File file;
+   ...
+}
+```
+1. `@OneToOne` 애너테이션으로 일대일 연관 관계를 나타낸다.
+2. `@JoinColumn` 애너테이션으로 외래키의 칼럼명을 지정한다.
+<br>
+
+- 일대일 양방향
+
+```java
+@Entity
+public class File {
+   ...
+   @OneToOne(mappedBy="file") // (1)
+   private Post post;
+   ...
+}
+```
+1. `@OneToOne`의 mappedBy에 주 테이블(POST)의 외래키 역할 객체 필드명을 작성한다.
