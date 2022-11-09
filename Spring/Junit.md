@@ -3,6 +3,7 @@
 1. [Assertions](#1-assertions)
 2. [Assumptions](#2-assumptions)
 3. [Lifecycle Method](#3-lifecycle-method)
+4. [Hamcrest](#4-hamcrest)
 <br>
 
 ### 1. Assertions
@@ -69,3 +70,40 @@ public class Test {
 - @AfterAll : 모든 @Test 메서드가 수행되고 난 후 @AfterAll 애너테이션이 붙은 메서드를 한 번 수행한다. 반드시 static 메서드여야 한다.
 - @BeforeEach: 각 @Test 메서드가 실행되기 전 @BeforeEach 메서드를 실행한다.
 - @AfterEach : 각 @Test 메서드가 실행된 후 @AfterEach 메서드를 실행한다.
+<br>
+
+### 4. Hamcrest
+
+> JUnit 기반 테스트에서 사용할 수 있는 Assertion 프레임워크다.
+
+- Hamcrest 사용 이유
+
+   - Assertion 매처가 하나의 자연스로운 영어 문장으로 이어져 가독성이 향상된다.
+   - 테스트 실패 메시지가 기존 JUnit 보다 이해하기 쉽다.
+   - 다양한 Matcher를 제공한다.
+<br>
+
+- Hamcrest 적용하기
+
+   i. AssertThat
+   
+   ```java
+   @Test
+   public void assertionTest() {
+     String expected = "Hi";
+     String actual = "Hi";
+     assertThat(actual, is(equalTo(expected))); // (1)
+   }
+   ```
+   - 기존의 assertEquals(expected, actual) 보다 가독성이 좋다.
+   - assert that actual is equal to expected 라는 하나의 영어 문장으로 자연스럽게 이어진다.
+  <br>
+ 
+  ii. NotNullValue
+  
+  ```java
+  assertThat(object, is(NotNullValue()));
+  assertThat(object, is(NullValue()));
+  ```
+  - 기존의 assertNotNull(객체, "오류 메시지") 보다 직관적이다.
+  - assert that object is not null value 라는 하나의 영어 문장으로 자연스럽게 이어진다.
