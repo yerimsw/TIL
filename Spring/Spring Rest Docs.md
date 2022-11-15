@@ -49,3 +49,20 @@ actions
 4. 요청, 응답 데이터에 있는 필드 변수 정보를 전달한다.
    - `.ignored()` : API 스펙에서 정보를 무시한다.
    - `.optional()` : API 스펙에서 필수정보로 분류하지 않고 선택적으로 정보를 전달할 수 있다.
+<br>
+
+### 3. Asciidoc
+
+- Spring Rest Docs으로 문서 스니핏을 생성하면, 스니핏을 모아 템플릿 문서를 생성할 수 있다.
+- Asciidoctor을 이용해 html 템플릿 문서를 생성할 수 있다.
+
+``` java
+== 제목
+.curl-request // (1)
+include::{snippets}/post-member/http-request.adoc[] // (2)
+```
+
+1. `.` 스니핏 제목
+2. `include` : Asciidoctor에서 스니핏을 템플릿 문서에 포함시킬 때 사용하는 macro이다.
+   - {snippets} 는 스니핏이 생성된 디폴트 경로를 나타낸다.
+   - 이 값은 build.gradle 파일의 `snippetDir` 변수를 참조한다.
