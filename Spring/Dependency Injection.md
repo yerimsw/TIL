@@ -7,6 +7,7 @@
    - 메서드 주입
 
 2. [의존관계 옵션 처리](#2-optional-dependency)
+3. [동일 타입 빈 조회](#3-동일-타입-빈-조회)
 <br>
 
 ## 1. 의존관계 주입 방법
@@ -106,3 +107,24 @@ public class DemoService {
 - `Autowired(required = false)` : 주입할 대상이 없으면 setter 메서드를 호출하지 않는다.
 - `@Nullable` : setter 주입에서 자동 주입할 대상이 없으면 null을 주입한다.
 - `Optional<>` : setter 주입에서 자동 주입할 대상이 없으면 Optional.empty를 주입한다.
+<br>
+
+## 3. 동일 타입 빈 조회
+
+- 의존성 주입의 `@Autowired`를 통해 스프링은 빈을 타입으로 조회한다.
+- 이때 타입이 같은 빈이 두개 이상 조회되면 `NoUniqueBeanDefinitionException` 예외가 발생한다.
+- 이를 해결하기 위한 세가지 방법을 알아보자.
+<br>
+
+1. 빈 이름 매칭
+   - 타입 매칭 이후 여러개의 빈이 조회되었을 때, 필드명 -> 매개변수명 순으로 이름이 일치하는 빈을 조회한다.
+
+2. Qualifier
+   - `@Component` 애너테이션이 붙은(빈으로 등록하기 위해) 클래스에 `@Qualifier("빈 명")`을 작성한다.
+   - 생성자, 세터, 필드 주입 위치에 `@Qualifier("빈 명")`을 동일하게 작성하면 일치하는 Qualifier 빈을 매칭한다.
+   - 일치하는 Quailifier가 없으면 이름이 동일한 빈을 매칭한다.
+
+3. Primary
+   - 동일 타입 빈들 중 @Primary가 붙은 빈이 매칭 우선권을 갖는다.
+   - Qualifier은 파라미터나 필드에 애너테이션을 일일이 작성해야하지만, Primary는 빈에 한 번만 작성하면 된다는 장점이 있다.
+   - Qualifier과 Primary 중 매칭 우선권은 수동으로 동작하는 Quailifer가 갖는다.
