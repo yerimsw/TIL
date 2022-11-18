@@ -1,4 +1,5 @@
 
+
 ### 1. Spring Security
 
 - Spring MVC 기반 애플리케이션의 인증, 권한 부여 기능 등을 지원하는 보안 프레임워크이다.
@@ -66,9 +67,12 @@ public class SecurityConfiguration {
         .loginPage("URL")
         .loginProcessingUrl("URL")
         .failureUrl("URL")
-        .and() // (2)
-        .exceptionHandling().accessDeniedPage("URL") // (3)
         .and()
+        .exceptionHandling().accessDeniedPage("URL") // (2)
+        .and()
+        .logout() // (3)
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/")
         .authorizeHttpRequests(authorize -> authorize // (4)
             .antMatchers("URL1").hasRole("ADMIN")
             .antMatchers("URL2").permitAll()
@@ -83,5 +87,15 @@ public class SecurityConfiguration {
    - loginPage("URL") 으로 사용자 지정 로그인 페이지를 사용할 수 있다. URL에 매핑되는 핸들러 메서드는 로그인 페이지를 리턴한다.
    - loginProcessingUrl("URL")은 URL로 로그인 인증 요청을 보내고, failureUrl("URL")은 인증 실패 시 지정 URL로 redirect 한다.
 
+2. exceptionHandling()
+   - 특정 URI에 권한이 없는 사용자가 접근하면 403 에러가 발생한다.
+   - accessDeniedPage("URL") 메서드는 403 에러 발생 시 지정한 URL로 redirect 되도록 한다.
 
+3. logout()
+   - logoutUrl("URL")을 통해 로그아웃을 수행할 request URL을 지정한다.
+   - logoutSuccessUrl("URL")은 로그아웃에 성공하면 redirect할 URL을 지정한다.
+
+4. authorizeHttpRequests()
+   - 람다식을 통해 request URI에 대한 접근 권한을 부여할 수 있다.
+   - antMatchers("/").permitAll() 메서드가 맨 앞에 오게 되면 모든 URI에 대한 접근을 허용하므로 순서에 유의해야 한다.
 
