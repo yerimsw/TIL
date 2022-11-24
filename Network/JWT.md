@@ -53,3 +53,90 @@
 <br>
 
 ### 4. JWT 생성과 검증
+
+1. JWT 의존 라이브러리 추가
+
+```
+implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+```
+- jjwt 라이브러리 의존을 build.gradle 파일에 추가한다.
+<br>
+
+2. JWT 생성 구현
+
+``` java
+public String encodeBase64SecretKey(String secretKey) {
+   return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
+}
+```
+- Secret Key를 BASE64 형식의 문자열로 인코딩 하는 메서드이다.
+- String 클래스의 getBytes() 메서드를 활용한다.
+<br>
+
+``` java
+private Key getKey(String secretKey) {
+   byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+   return Keys.hmacShaKeyFor(keyBytes);
+}
+
+private Key getKeyFromBase64EncodedKey(String base64EncodeSecretKey) {
+   byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
+   Key key = Keys.hmacShaKeyFor(keyBytes);
+   return key;
+}
+```
+- 위는 인코딩 되지 않은 secret key에 대해 byte array를 반환한다.
+- 아래는 BASE64로 인코딩 된 secret key를 디코딩 한 후 byte array를 반환한다.
+- `Keys.hmacShaKeyFor()` 메서드는 파라미터로 주어진 key byte array를 기반으로 HMAC-SHA 알고리즘을 사용해 새로운 SecretKey 인스턴스를 생성한다.
+<br>
+
+``` java
+public String generateAccessToken(Map<String, Object> claims, String subject, Date expiration, String base64EncodedSecretKey) {
+   Key key = getKeyFromBase64EncodeKey(base64EncodedSecretKey);
+   
+   return Jwts.builder()
+            .setClaims(claims) // name/value 쌍으로 이뤄진 맵 데이터를 포함하는 Claims 인스턴스를 리턴.
+            .setSubject(subject)
+            .setIssueAt(Calendar.getInstance().getTime())
+            .setExpiration(expiration)
+            .signWith(key) // 생성된 JWT를 key를 이용해 서명한다.
+            .compact(); // JWT를 생성하고 url-safe String으로 직렬화한다.
+```
+- https://javadoc.io/static/io.jsonwebtoken/jjwt/0.9.1/io/jsonwebtoken/JwtBuilder.html
+- 인증된 사용자에게 JWT 발행해주는 JWT 생성 메서드이다.
+- Url-safe JWT String을 반환한다.
+<br>
+
+```java
+public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
+   Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+   
+   return Jwts.builder()
+            .setSubject(subject)
+            .setIssuedAt(Calendar.getInstance().getTime())
+            .setExpiration(expiration)
+            .signWith(key)
+            .compact();
+}
+```
+- Access Token이 만료되었을 경우, 다시 생성할 수 있게 하는 Refresh Token을 생성하는 메서드다. 
+<br>
+
+3. JWT 검증 구현
+
+``` java
+public void verifySignature(String jws, String base64EncodedSecretKey) {
+    Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+
+    Jwts.parserBuilder()
+        .setSigningKey(key)     // (1)
+        .build()
+        .parseClaimsJws(jws);   // (2)
+        // .getBody() // (3)
+}
+```
+- (1) JWT 서명을 검증할 signing key를 지정한다.
+- (2) compact 하게 직렬화된 JWS String 토큰을 JWS 인스턴스로 파싱한다.
+- (3) `getBody()` 메서드를 이용해 토큰에 저장된 claims를 얻을 수 있다.
